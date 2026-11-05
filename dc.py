@@ -1,6 +1,3 @@
-# ============================================================
-# EXP 1: rpc
-# ============================================================
 import csv, json
 
 #RPC
@@ -40,9 +37,6 @@ with open("rpc_calls_1.csv") as f:
         print("[RETURN] Result:", result)
 
 
-# ============================================================
-# EXP 2: multithreading
-# ============================================================
 import csv
 import threading
 import time
@@ -79,9 +73,6 @@ for t in threads:
 print("Completed tasks:", done)
 
 
-# ============================================================
-# EXP 3: lamport
-# ============================================================
 import csv
 
 clock = {}
@@ -120,9 +111,6 @@ for timestamp, process_id, event_id in sorted(events):
     print(event_id, process_id, "Timestamp:", timestamp)
 
 
-# ============================================================
-# EXP 4: cristian
-# ============================================================
 import csv
 
 with open("cristian_clocks_8.csv") as f:
@@ -143,9 +131,6 @@ with open("cristian_clocks_8.csv") as f:
         print("Adjusted Client Time:", t1 + drift)
 
 
-# ============================================================
-# EXP 5: berkely
-# ============================================================
 import csv
 
 times = []
@@ -172,9 +157,6 @@ for x in times:
     print(x[0], "Adjustment:", avg - x[1])
 
 
-# ============================================================
-# EXP 6: vector
-# ============================================================
 import csv
 
 P = ["P1", "P2", "P3"]
@@ -221,9 +203,6 @@ for i in range(len(events)):
             print(ea, "||", eb, "Concurrent")
 
 
-# ============================================================
-# EXP 7: ring
-# ============================================================
 import csv
 
 nxt = {}
@@ -263,9 +242,6 @@ print("Token returned to initiator:", token)
 print("New Leader:", max(token))
 
 
-# ============================================================
-# EXP 8: bully
-# ============================================================
 import csv
 
 nodes = []
@@ -299,9 +275,6 @@ for n in alive:
         print("COORDINATOR:", leader, "->", n)
 
 
-# ============================================================
-# EXP 9: load
-# ============================================================
 import csv
 
 workers = ["W1", "W2", "W3"]
@@ -330,9 +303,6 @@ for i in range(3):
     print(workers[i], "Jobs:", jobs[i], "Load:", load[i])
 
 
-# ============================================================
-# EXP 10: matrix
-# ============================================================
 import csv
 import threading
 
