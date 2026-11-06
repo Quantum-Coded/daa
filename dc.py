@@ -84,8 +84,8 @@ print("Completed tasks:", done)
 # ============================================================
 import csv
 
-clock = {}
-pending = []  # messages in flight: [sender, receiver, timestamp]
+clock = {}     # current clock of each process
+sent = {}      # (sender, receiver) -> timestamps of messages not yet received
 events = []
 
 with open("events_7.csv") as f:
@@ -98,16 +98,14 @@ with open("events_7.csv") as f:
 
         if event_type == "SEND":
             clock[process_id] = L + 1
-            pending.append([process_id, message_to, clock[process_id]])
+            sent.setdefault((process_id, message_to), []).append(clock[process_id])
             print(event_id, "SEND: L =", L, "+ 1 =", clock[process_id])
 
         elif event_type == "RECEIVE":
-            m = [x for x in pending if x[1] == process_id]
-            m = [x for x in m if x[0] == message_to] or m
-            pending.remove(m[0])
-
-            clock[process_id] = max(L, m[0][2]) + 1
-            print(event_id, "RECEIVE: L = max(", L, ",", m[0][2], ") + 1 =", clock[process_id])
+            # for RECEIVE, message_to holds the sender
+            msg = sent[(message_to, process_id)].pop(0)
+            clock[process_id] = max(L, msg) + 1
+            print(event_id, "RECEIVE: L = max(", L, ",", msg, ") + 1 =", clock[process_id])
 
         else:  # LOCAL
             clock[process_id] = L + 1
@@ -163,7 +161,11 @@ with open("node_clocks_3.csv") as f:
         else:
             print("Outlier discarded:", r[0])
 
-avg = sum(x[1] for x in times) / len(times)
+total = 0
+for x in times:
+    total = total + x[1]
+
+avg = total / len(times)
 
 print("\nAverage Clock Time:", avg)
 print("Average Offset from master", times[0][0], ":", avg - times[0][1])
