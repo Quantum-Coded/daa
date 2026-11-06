@@ -15,7 +15,11 @@ with open("node_clocks_3.csv") as f:
         else:
             print("Outlier discarded:", r[0])
 
-avg = sum(x[1] for x in times) / len(times)
+total = 0
+for x in times:
+    total = total + x[1]
+
+avg = total / len(times)
 
 print("\nAverage Clock Time:", avg)
 print("Average Offset from master", times[0][0], ":", avg - times[0][1])
